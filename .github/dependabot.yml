@@ -1,0 +1,11 @@
+version: 2
+updates:
+  # Fix #12: automatically track new action releases and open PRs
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    labels:
+      - "dependencies"
