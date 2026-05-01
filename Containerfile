@@ -9,7 +9,7 @@ FROM opensuse/tumbleweed:latest
 # Install methods mirror the provisioning playbook (my_suse_machine):
 #   - gemini-cli:  zypper (openSUSE community package)
 #   - opencode:    GitHub release binary (tar.gz archive)
-#   - claude-code: official installer (downloads binary to ~/.claude/local/)
+#   - claude-code: official installer (downloads binary to ~/.local/bin/)
 #
 # Versions are pinned below.  Bump ARGs and push to main to trigger rebuild.
 # ==============================================================================
@@ -48,15 +48,14 @@ ENV CI=true
 RUN curl -fsSL https://claude.ai/install.sh | bash
 
 # ── PATH configuration ───────────────────────────────────────────────────────
-# Match the PATH layout from the playbook:
-#   ~/.claude/local/claude  (claude-code)
-#   /usr/local/bin/opencode (opencode)
-#   gemini is in /usr/bin via zypper
-ENV PATH="/root/.claude/local:/usr/local/bin:${PATH}"
+# claude-code installs its binary to ~/.local/bin/claude (native build).
+# opencode is placed in /usr/local/bin by the step above.
+# gemini-cli is in /usr/bin via zypper.
+ENV PATH="/root/.local/bin:/usr/local/bin:${PATH}"
 
 # ── Verify installations ─────────────────────────────────────────────────────
 RUN gemini --version && \
-    opencode version && \
+    opencode --version && \
     claude --version
 
 # ── Default workdir for downstream consumers ─────────────────────────────────
