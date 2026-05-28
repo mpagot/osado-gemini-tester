@@ -14,7 +14,7 @@ FROM opensuse/tumbleweed:latest
 # Versions are pinned below.  Bump ARGs and push to main to trigger rebuild.
 # ==============================================================================
 
-ARG OPENCODE_VERSION=v1.4.6
+ARG OPENCODE_VERSION=v1.15.11
 ARG OPENCODE_URL=https://github.com/anomalyco/opencode/releases/download/${OPENCODE_VERSION}/opencode-linux-x64.tar.gz
 
 # ── System dependencies ──────────────────────────────────────────────────────
