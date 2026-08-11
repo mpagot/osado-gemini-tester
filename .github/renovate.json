@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "enabledManagers": ["regex"],
+  "schedule": ["every monday"],
+  "labels": ["dependencies"],
+  "regexManagers": [
+    {
+      "fileMatch": ["^Containerfile$"],
+      "matchStrings": ["ARG OPENCODE_VERSION=(?<currentValue>v[\\d.]+)"],
+      "depNameTemplate": "anomalyco/opencode",
+      "datasourceTemplate": "github-releases"
+    }
+  ]
+}
