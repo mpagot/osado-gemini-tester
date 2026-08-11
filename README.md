@@ -11,6 +11,7 @@ integration tests.
 | gemini-cli | `zypper install gemini-cli` | openSUSE Tumbleweed community package |
 | opencode | GitHub release binary (tar.gz) | [anomalyco/opencode](https://github.com/anomalyco/opencode) |
 | claude-code | Official `curl \| bash` installer | [claude.ai/install.sh](https://claude.ai/install.sh) |
+| antigravity-cli | Official `curl \| bash` installer | [antigravity.google/install.sh](https://antigravity.google/cli/install.sh) |
 
 Plus: git, perl, curl, jq, gh (for test infrastructure).
 
@@ -46,5 +47,5 @@ ARG OPENCODE_VERSION=v1.4.6
 ARG OPENCODE_URL=https://github.com/anomalyco/opencode/releases/download/${OPENCODE_VERSION}/opencode-linux-x64.tar.gz
 ```
 
-Claude-code auto-updates via the installer, so no version pin is needed.
+Claude-code and antigravity-cli auto-updates via the installer, so no version pin is needed.
 Gemini-cli tracks the latest openSUSE Tumbleweed package.

@@ -10,11 +10,12 @@ FROM opensuse/tumbleweed:latest
 #   - gemini-cli:  zypper (openSUSE community package)
 #   - opencode:    GitHub release binary (tar.gz archive)
 #   - claude-code: official installer (downloads binary to ~/.local/bin/)
+#   - antigravity-cli: official installer
 #
 # Versions are pinned below.  Bump ARGs and push to main to trigger rebuild.
 # ==============================================================================
 
-ARG OPENCODE_VERSION=v1.15.11
+ARG OPENCODE_VERSION=v1.18.16
 ARG OPENCODE_URL=https://github.com/anomalyco/opencode/releases/download/${OPENCODE_VERSION}/opencode-linux-x64.tar.gz
 
 # ── System dependencies ──────────────────────────────────────────────────────
@@ -40,12 +41,14 @@ RUN curl -fsSL "${OPENCODE_URL}" -o /tmp/opencode.tar.gz && \
     rm -rf /tmp/opencode.tar.gz /tmp/opencode_extract
 
 # ── claude-code: official installer ──────────────────────────────────────────
-# Same approach as the playbook: curl | bash.
 # The installer downloads the binary (~248MB), verifies checksum, runs
 # `claude install` for shell integration, then cleans up the download.
 # We set CI=true to suppress any interactive prompts.
 ENV CI=true
 RUN curl -fsSL https://claude.ai/install.sh | bash
+
+# ── antigravity cli: official installer ──────────────────────────────────────────
+RUN curl -fsSL https://antigravity.google/cli/install.sh | bash
 
 # ── PATH configuration ───────────────────────────────────────────────────────
 # claude-code installs its binary to ~/.local/bin/claude (native build).
@@ -56,7 +59,8 @@ ENV PATH="/root/.local/bin:/usr/local/bin:${PATH}"
 # ── Verify installations ─────────────────────────────────────────────────────
 RUN gemini --version && \
     opencode --version && \
-    claude --version
+    claude --version && \
+    agy --version
 
 # ── Default workdir for downstream consumers ─────────────────────────────────
 WORKDIR /workspace

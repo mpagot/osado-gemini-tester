@@ -90,4 +90,4 @@ jobs:
             --cpus 0.5 \
             --network none \
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
-            sh -c "gemini --version && opencode version && claude --version"
+            sh -c "gemini --version && opencode version && claude --version && agy --version"
